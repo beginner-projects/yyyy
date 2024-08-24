@@ -5,7 +5,6 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    
     const browser = await puppeteer.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
@@ -21,20 +20,20 @@ export async function GET() {
     const priceSelector = "#section-coin-overview > div.sc-65e7f566-0.DDohe.flexStart.alignBaseline > span";
     await page.waitForSelector(priceSelector);
 
-    const priceText = await page.$eval(priceSelector, el => el.textContent);
+    const priceText = await page.$eval(priceSelector, el => el.textContent?.trim());
 
     if (!priceText) {
       throw new Error('Price text not found');
     }
 
-    const price = parseFloat(priceText.replace(/[^0-9.-]/g, ''));
+    const price = parseFloat(priceText.replace(/[^0-9.-]+/g, ''));
 
     if (isNaN(price)) {
       throw new Error('Price conversion error');
     }
 
-    const myTokenBuyPrice = (price + price * 0.05).toFixed(5);
-    const myTokenSellPrice = (price - price * 0.05).toFixed(5);
+    const myTokenBuyPrice = (price * 1.05).toFixed(5);
+    const myTokenSellPrice = (price * 0.95).toFixed(5);
 
     await browser.close();
 
