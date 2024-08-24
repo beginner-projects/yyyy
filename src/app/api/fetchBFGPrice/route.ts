@@ -5,13 +5,11 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const isLocal = 'dev';
-    const ePath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
     
     const browser = await puppeteer.launch({
-      args: isLocal ? puppeteer.defaultArgs() : chromium.args,
+      args: chromium.args,
       defaultViewport: chromium.defaultViewport,
-      executablePath: isLocal ? ePath : await chromium.executablePath('https://my-media-assets.s3.amazonaws.com/chromium-v126.0.0-pack.tar'),
+      executablePath: await chromium.executablePath('https://my-media-assets.s3.amazonaws.com/chromium-v126.0.0-pack.tar'),
       headless: chromium.headless,
     });
 
