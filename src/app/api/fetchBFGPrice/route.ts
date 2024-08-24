@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const isLocal = process.env.NODE_ENV === 'development';
+    const isLocal = 'dev';
     const ePath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
     
     const browser = await puppeteer.launch({
