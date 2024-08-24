@@ -32,7 +32,7 @@ export default function Home() {
 
     const intervalId = setInterval(() => {
       fetchBFGPrice();
-    }, 15000); // Fetch every 60 seconds
+    }, 60000); // Fetch every 60 seconds
 
     return () => clearInterval(intervalId);
   }, []);
